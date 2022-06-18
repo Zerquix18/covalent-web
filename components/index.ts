@@ -1,3 +1,4 @@
+import Chain from './Chain';
 import Layout from './Layout';
 
-export { Layout };
+export { Chain, Layout };
