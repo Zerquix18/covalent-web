@@ -1,17 +1,17 @@
-import { ExchangeVolumeV2, HealthData, TokenV2Volume, UniswapLikeEcosystemCharts } from "covalent-sdk";
 import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import { useState } from "react";
+import { EcosystemResponse, HealthDataResponse, NetworkExchangeTokenResponse, UniswapLikeExchangeListResponse } from "covalent-sdk";
 import { Content, Heading, Tabs } from "react-bulma-components";
 import { Layout } from "../../../../components";
 import Charts from "../../../../components/Charts";
 import { covalentService } from "../../../../services";
 
 interface DexProps {
-  pools: ExchangeVolumeV2[]; 
-  tokens: TokenV2Volume[];
-  ecosystemChartData: UniswapLikeEcosystemCharts;
-  healthData: HealthData[];
+  poolsResponse: UniswapLikeExchangeListResponse;
+  tokensResponse: NetworkExchangeTokenResponse;
+  ecosystemChartDataResponse: EcosystemResponse;
+  healthDataResponse: HealthDataResponse;
 }
 
 type CurrentTab = 'charts';
@@ -19,10 +19,10 @@ const tabs: { id: CurrentTab, name: string }[] = [
   { id: 'charts', name: 'Charts' },
 ];
 
-function Dex({ pools, tokens, ecosystemChartData, healthData }: DexProps) {
+function Dex({ ecosystemChartDataResponse }: DexProps) {
   const [currentTab, setCurrentTab] = useState<CurrentTab>('charts');
 
-  const dexName = ecosystemChartData.dex_name;
+  const dexName = ecosystemChartDataResponse.items[0].dex_name;
 
   return (
     <Layout>
@@ -42,7 +42,7 @@ function Dex({ pools, tokens, ecosystemChartData, healthData }: DexProps) {
       </Tabs>
 
       <Content>
-        { currentTab === 'charts' && <Charts chartData={ecosystemChartData} /> }
+        { currentTab === 'charts' && <Charts chartData={ecosystemChartDataResponse.items[0]} /> }
       </Content>
     </Layout>
   );
@@ -52,20 +52,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id: chainId, dexname } = context.params as { id: string; dexname: string };
 
   const chain = covalentService.exchange(dexname, parseInt(chainId));
-  const [pools, tokens, ecosystemChartData, healthData] = await Promise.all([
+  const [poolsResponse, tokensResponse, ecosystemChartDataResponse, healthDataResponse] = await Promise.all([
     chain.pools(),
     chain.tokens(),
     chain.ecosystemChartData(),
     chain.healthData(),
   ]);
 
-  const props: DexProps = {
-    pools: pools.items,
-    tokens: tokens.items,
-    ecosystemChartData: ecosystemChartData.items[0],
-    healthData: healthData.items,
-  };
-
+  const props: DexProps = { poolsResponse, tokensResponse, ecosystemChartDataResponse, healthDataResponse };
   return { props };
 }
 
