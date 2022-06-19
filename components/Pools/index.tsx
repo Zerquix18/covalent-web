@@ -1,5 +1,5 @@
 import { UniswapLikeExchangeListResponse } from "covalent-sdk";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Progress, Table } from "react-bulma-components";
 import { covalentService } from "../../services";
 

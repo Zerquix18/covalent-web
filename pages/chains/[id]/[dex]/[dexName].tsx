@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useState } from "react";
 import { EcosystemResponse, HealthDataResponse, NetworkExchangeTokenResponse, UniswapLikeExchangeListResponse } from "covalent-sdk";
 import { Content, Heading, Tabs } from "react-bulma-components";
-import { Charts, Layout, Pools } from "../../../../components";
+import { Charts, Layout, Pools, Tokens } from "../../../../components";
 import { covalentService } from "../../../../services";
 
 interface DexProps {
@@ -15,13 +15,14 @@ interface DexProps {
   healthDataResponse: HealthDataResponse;
 }
 
-type CurrentTab = 'pools' | 'charts';
+type CurrentTab = 'pools' | 'tokens' | 'charts';
 const tabs: { id: CurrentTab, name: string }[] = [
   { id: 'pools', name: 'Pools' },
+  { id: 'tokens', name: 'Tokens' },
   { id: 'charts', name: 'Charts' },
 ];
 
-function Dex({ dexName, chainId, poolsResponse, ecosystemChartDataResponse }: DexProps) {
+function Dex({ dexName, chainId, poolsResponse, tokensResponse, ecosystemChartDataResponse }: DexProps) {
   const [currentTab, setCurrentTab] = useState<CurrentTab>('pools');
 
   return (
@@ -43,6 +44,7 @@ function Dex({ dexName, chainId, poolsResponse, ecosystemChartDataResponse }: De
 
       <Content>
         { currentTab === 'pools' && <Pools pools={poolsResponse} dexName={dexName} chainId={chainId} /> }
+        { currentTab === 'tokens' && <Tokens tokens={tokensResponse} dexName={dexName} chainId={chainId} /> }
         { currentTab === 'charts' && <Charts chartData={ecosystemChartDataResponse.items[0]} /> }
       </Content>
     </Layout>
