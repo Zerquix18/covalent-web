@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Block, CovalentExchangeItem } from "covalent-sdk";
 import { Heading, Notification, Progress, Tag } from "react-bulma-components";
 import { covalentService } from "../../../services";
+import Link from "next/link";
 
 interface ChainInfoProps {
   chainId: string;
@@ -66,7 +67,15 @@ function ChainInfo({ chainId }: ChainInfoProps) {
       ) : (
         <ul>
           { exchanges.map(exchange => {
-            return <li key={exchange.dex_name}>{ exchange.dex_name }</li>
+            const href = `/chains/${exchange.chain_id}/dex/${exchange.dex_name}`;
+
+            return (
+              <li key={exchange.dex_name}>
+                <Link href={href}>
+                  { exchange.dex_name }
+                </Link>
+              </li>
+            );
           })}
         </ul>
       )}
