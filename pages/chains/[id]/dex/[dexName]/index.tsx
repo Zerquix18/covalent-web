@@ -3,8 +3,8 @@ import Head from "next/head";
 import { useState } from "react";
 import { EcosystemResponse, NetworkExchangeTokenResponse, UniswapLikeExchangeListResponse } from "covalent-sdk";
 import { Content, Heading, Tabs } from "react-bulma-components";
-import { Charts, Layout, Pools, Tokens } from "../../../../components";
-import { covalentService } from "../../../../services";
+import { Charts, Layout, Pools, Tokens } from "../../../../../components";
+import { covalentService } from "../../../../../services";
 
 interface DexProps {
   dexName: string;

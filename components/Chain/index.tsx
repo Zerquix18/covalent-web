@@ -15,9 +15,9 @@ function Chain({ chain }: ChainProps) {
   };
 
   return (
-    <Card style={{ cursor: 'pointer' }} onClick={toggleExpanded}>
+    <Card style={{ cursor: 'pointer' }}>
       <Card.Content>
-        <Media>
+        <Media onClick={toggleExpanded}>
           <Media.Item renderAs="figure" align="left">
             <Image rounded size={48} alt={`${chain.label} logo`} src={chain.logo_url} />
           </Media.Item>

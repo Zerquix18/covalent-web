@@ -1,4 +1,5 @@
 import { NetworkExchangeTokenResponse } from "covalent-sdk";
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { Progress, Table, Image } from "react-bulma-components";
 import { covalentService } from "../../services";
@@ -68,12 +69,18 @@ function Tokens({ chainId, dexName, tokens: tokensResult }: TokensProps) {
         </thead>
         <tbody>
           { tokens.map(token => {
+            const href = `/chains/${chainId}/dex/${dexName}/token/${token.contract_address}`;
+
             return (
               <tr key={token.contract_address}>
                 <td>
                   <Image rounded size={24} src={token.logo_url} />
                 </td>
-                <td>{ token.contract_name }</td>
+                <td>
+                  <Link href={href}>
+                    { token.contract_name }
+                  </Link>
+                </td>
                 <td>{ token.contract_ticker_symbol }</td>
                 <td>{ token.swap_count_24h }</td>
                 <td>{ token.total_volume_24h }</td>
