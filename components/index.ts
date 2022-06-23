@@ -1,3 +1,4 @@
+import AddressAsset from './AddressAsset';
 import Chain from './Chain';
 import Charts from './Charts';
 import ExchangeTokenPools from './ExchangeTokenPools';
@@ -7,6 +8,7 @@ import Pools from './Pools';
 import Tokens from './Tokens';
 
 export {
+  AddressAsset,
   Chain,
   Charts,
   ExchangeTokenPools,
