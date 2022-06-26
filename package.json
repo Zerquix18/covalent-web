@@ -11,7 +11,7 @@
   "dependencies": {
     "chart.js": "^3.8.0",
     "chartjs-adapter-date-fns": "^2.0.0",
-    "covalent-sdk": "file:../covalent",
+    "covalent-sdk": "^1.0.2",
     "date-fns": "^2.28.0",
     "next": "12.1.6",
     "react": "18.2.0",
