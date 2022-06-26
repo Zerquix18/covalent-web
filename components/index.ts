@@ -5,6 +5,7 @@ import ExchangeTokenPools from './ExchangeTokenPools';
 import ExchangeTokenTransactions from './ExchangeTokenTransactions';
 import Layout from './Layout';
 import Pools from './Pools';
+import TokenHolders from './TokenHolders';
 import Tokens from './Tokens';
 
 export {
@@ -15,5 +16,6 @@ export {
   ExchangeTokenTransactions,
   Layout,
   Pools,
+  TokenHolders,
   Tokens
 };
