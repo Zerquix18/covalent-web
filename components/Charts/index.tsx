@@ -56,8 +56,9 @@ function Charts({ chartData }: ChartProps) {
         <Button rounded disabled={period === '30d'} onClick={togglePeriod}>30d</Button>
       </Button.Group>
 
-      <div style={{ height: 400 }}>
+      <div style={{ height: 500, width: '100%' }}>
         <Line
+          height={100}
           data={liquidityChart7dData}
           options={{
             scales: {
