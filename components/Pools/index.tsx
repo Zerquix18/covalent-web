@@ -1,4 +1,5 @@
 import { UniswapLikeExchangeListResponse } from "covalent-sdk";
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { Progress, Table } from "react-bulma-components";
 import { covalentService } from "../../services";
@@ -70,10 +71,20 @@ function Pools({ chainId, dexName, pools: poolsResult }: PoolsProps) {
         <tbody>
           { pools.map(pool => {
             const key = pool.token_0.contract_ticker_symbol + pool.token_1.contract_ticker_symbol;
+            const href0 = `/chains/${chainId}/token/${pool.token_0.contract_address}`;
+            const href1 = `/chains/${chainId}/token/${pool.token_1.contract_address}`;
 
             return (
               <tr key={key}>
-                <td>{ pool.token_0.contract_ticker_symbol} / { pool.token_1.contract_ticker_symbol }</td>
+                <td>
+                  <Link href={href0}>
+                    { pool.token_0.contract_ticker_symbol }
+                  </Link>
+                  &nbsp;/&nbsp;
+                  <Link href={href1}>
+                    { pool.token_1.contract_ticker_symbol }
+                  </Link>
+                </td>
                 <td>{ pool.total_supply }</td>
                 <td>{ pool.total_liquidity_quote }</td>
                 <td>{ pool.swap_count_24h }</td>

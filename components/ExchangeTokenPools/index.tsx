@@ -1,4 +1,5 @@
 import { SingleNetworkExchangeTokenResponse } from "covalent-sdk";
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { Progress, Table } from "react-bulma-components";
 import { covalentService } from "../../services";
@@ -72,10 +73,21 @@ function ExchangeTokenPools({ chainId, dexName, contractAddress, pools: poolsRes
           { pools.map(pool => {
             const key = pool.token_0.contract_address + pool.token_1.contract_address;
 
+            const href0 = `/chains/${chainId}/token/${pool.token_0.contract_address}`;
+            const href1 = `/chains/${chainId}/token/${pool.token_1.contract_address}`;
+
             return (
               <tr key={key}>
-                <td>{ pool.token_0.contract_name }</td>
-                <td>{ pool.token_1.contract_name }</td>
+                <td>
+                  <Link href={href0}>
+                    { pool.token_0.contract_name }
+                  </Link>
+                </td>
+                <td>
+                  <Link href={href1}>
+                    { pool.token_1.contract_name }
+                  </Link>
+                </td>
                 <td>{ pool.swap_count_24h }</td>
                 <td>{ pool.volume_24h_quote }</td>
                 <td>{ pool.volume_7d_quote }</td>

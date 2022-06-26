@@ -72,15 +72,30 @@ function ExchangeTokenTransactions({ chainId, dexName, contractAddress, transact
         </thead>
         <tbody>
           { transactions.map(transaction => {
+            const senderHref = `/chains/${chainId}/address/${transaction.sender_address}`;
+            const toHref = `/chains/${chainId}/address/${transaction.to_address}`;
+            const txHref = `/chains/${chainId}/transaction/${transaction.tx_hash}`;
             return (
               <tr key={transaction.tx_hash}>
                 <td>{ transaction.act }</td>
-                <td>{ transaction.sender_address.slice(0, 7) + '...' + transaction.sender_address.slice(-4) }</td>
-                <td>{ transaction.to_address.slice(0, 7) + '...' + transaction.to_address.slice(-4) }</td>
+                <td>
+                  <Link href={senderHref}>
+                    { transaction.sender_address.slice(0, 7) + '...' + transaction.sender_address.slice(-4) }
+                  </Link>
+                </td>
+                <td>
+                  <Link href={toHref}>
+                    { transaction.to_address.slice(0, 7) + '...' + transaction.to_address.slice(-4) }
+                  </Link>
+                </td>
                 <td>{ format(new Date(transaction.block_signed_at), 'YYY/MM/dd hh:mm:ss') }</td>
                 <td>{ transaction.token_0.contract_name }</td>
                 <td>{ transaction.token_1.contract_name }</td>
-                <td>{ transaction.tx_hash.slice(0, 7) + '...' + transaction.tx_hash.slice(-4) }</td>
+                <td>
+                  <Link href={txHref}>
+                    { transaction.tx_hash.slice(0, 7) + '...' + transaction.tx_hash.slice(-4) }
+                  </Link>
+                </td>
               </tr>
             );
           })}
